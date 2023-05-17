@@ -88,3 +88,5 @@ gem "faraday", "~> 2.7"
 gem "rubocop-capybara", "~> 2.18"
 gem "rubocop-factory_bot", "~> 2.23"
 gem "rubocop-rspec", "~> 2.22"
+
+gem "webmock", "~> 3.18"
