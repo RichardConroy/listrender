@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe "articles/index", type: :view do
@@ -10,6 +12,6 @@ RSpec.describe "articles/index", type: :view do
 
   it "renders a list of articles" do
     render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
+    Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
   end
 end
