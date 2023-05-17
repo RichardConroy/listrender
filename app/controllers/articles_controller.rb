@@ -3,24 +3,39 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    # @articles = Article.all
+    data_source_url = 'https://s3-eu-west-1.amazonaws.com/olio-staging-images/developer/test-articles-v4.json'
+    faraday_connection = Faraday.new(data_source_url) do |connection|
+      # connection.request :retry
+      connection.response :json
+    end
+
+    json_response = faraday_connection.get
+    @articles = json_response.body.map do |response_hash|
+      Article.new external_id: response_hash['id'], title: response_hash['title'], description: response_hash['description']
+    end
+
   end
 
   # GET /articles/1 or /articles/1.json
   def show
+    # TODO: scaffold boilerplace - review if needed
   end
 
   # GET /articles/new
   def new
+    # TODO: scaffold boilerplace - review if needed
     @article = Article.new
   end
 
   # GET /articles/1/edit
   def edit
+    # TODO: scaffold boilerplace - review if needed
   end
 
   # POST /articles or /articles.json
   def create
+    # TODO: scaffold boilerplace - review if needed
     @article = Article.new(article_params)
 
     respond_to do |format|
@@ -36,6 +51,7 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+    # TODO: scaffold boilerplace - review if needed
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
@@ -49,6 +65,7 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1 or /articles/1.json
   def destroy
+    # TODO: scaffold boilerplace - review if needed
     @article.destroy
 
     respond_to do |format|
@@ -60,11 +77,13 @@ class ArticlesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
+      # TODO: scaffold boilerplace - review if needed
       @article = Article.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def article_params
+      # TODO: scaffold boilerplace - review if needed
       params.fetch(:article, {})
     end
 end
