@@ -90,3 +90,5 @@ gem "rubocop-factory_bot", "~> 2.23"
 gem "rubocop-rspec", "~> 2.22"
 
 gem "webmock", "~> 3.18"
+
+gem "launchy", "~> 2.5"

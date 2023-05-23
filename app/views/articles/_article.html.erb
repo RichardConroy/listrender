@@ -1,4 +1,10 @@
-<div id="<%= dom_id article %>">
+<div id="<%= dom_id article %>" class="article">
   <p><%= article.title %></p>
   <p><%= article.description %></p>
+  <p>
+    <div>
+      <%= button_to 'Like', like_article_path(article) %>
+    </div>
+    <div class="like_count">0 likes</div>
+  </p>
 </div>

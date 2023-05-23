@@ -19,6 +19,10 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def like
+
+  end
+
   # GET /articles/1 or /articles/1.json
   def show
     # TODO: scaffold boilerplace - review if needed
