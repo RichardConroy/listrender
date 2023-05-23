@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# Capybara helper methods
 module ArticleFinders
   def first_article
     first('div.article')
@@ -44,6 +45,5 @@ RSpec.describe "Articles", type: :system do
       expect(first_article).to have_button 'Like'
       expect(first_article_like_count).to have_text '0'
     end
-
   end
 end
