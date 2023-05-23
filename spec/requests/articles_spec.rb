@@ -15,6 +15,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/articles", type: :request do
+  include S3DownloadHelper
   # This should return the minimal set of attributes required to create a valid
   # Article. As you add validations to Article, be sure to
   # adjust the attributes here as well.
@@ -27,10 +28,15 @@ RSpec.describe "/articles", type: :request do
   }
 
   describe "GET /index" do
+    before { stub_s3_download }
     it "renders a successful response" do
       Article.create! valid_attributes
       get articles_url
       expect(response).to be_successful
+    end
+
+    it 'downloads the s3 archive' do
+      expect { get articles_url }.to change { S3Download.count }.by(1)
     end
   end
 

@@ -7,21 +7,17 @@ module ArticleFinders
     first('div.article')
   end
 
-  def like_count
-    find('.like_count')
+  def first_article_like_count
+    first_article.find('.like_count')
   end
 end
 
 RSpec.describe "Articles", type: :system do
   include ArticleFinders
+  include S3DownloadHelper
 
   before do
     driven_by(:rack_test)
-  end
-
-  def stub_s3_download(response = file_fixture('original_test_fixtures.json') )
-    stub_request(:get, 'https://s3-eu-west-1.amazonaws.com/olio-staging-images/developer/test-articles-v4.json')
-      .to_return(body: response, headers: { content_type: 'application/json' })
   end
 
   describe 'article list' do
@@ -44,9 +40,9 @@ RSpec.describe "Articles", type: :system do
 
     it 'shows a like button with each article' do
       visit articles_path
-      binding.pry
+
       expect(first_article).to have_button 'Like'
-      expect(first_article.like_count).to have_text '0'
+      expect(first_article_like_count).to have_text '0'
     end
 
   end
