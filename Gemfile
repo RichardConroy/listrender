@@ -92,3 +92,5 @@ gem "rubocop-rspec", "~> 2.22"
 gem "webmock", "~> 3.18"
 
 gem "launchy", "~> 2.5"
+
+gem "shoulda-matchers", "~> 4.5"
