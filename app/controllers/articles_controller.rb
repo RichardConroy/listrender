@@ -7,11 +7,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    # @articles = Article.all
-
-    @articles = @created_s3_download.manifest.map do |response_hash|
-      Article.new external_id: response_hash['id'], title: response_hash['title'], description: response_hash['description']
-    end
+    @articles = @created_s3_download.articles
   end
 
   def like; end

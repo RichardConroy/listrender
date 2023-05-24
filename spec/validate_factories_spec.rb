@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 # Crude method to verify if all your factories are generating valid objects. Your tests are

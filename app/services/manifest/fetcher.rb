@@ -16,7 +16,15 @@ module Manifest
       end
 
       json_response = faraday_connection.get
-      S3Download.create! manifest: json_response.body # TODO: on error return last good S3Download
+      @s3_download = S3Download.create! manifest: json_response.body # TODO: on error return last good S3Download
+      on_success
+    end
+
+    private
+
+    def on_success
+      Manifest::Sync.call(s3_download_record: @s3_download)
+      @s3_download
     end
   end
 end
