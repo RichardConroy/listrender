@@ -3,6 +3,6 @@ FactoryBot.define do
     external_id { 1 }
     title { "MyString" }
     description { "MyString" }
-    s3_downloads { nil }
+    s3_download
   end
 end
