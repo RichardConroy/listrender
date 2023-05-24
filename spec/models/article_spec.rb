@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Article, type: :model do
   describe '#associations' do
     it { should belong_to :s3_download }
+    it { should have_many :likes }
   end
 
   describe '#validations' do

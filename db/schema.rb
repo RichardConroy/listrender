@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_090930) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_24_215646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_090930) do
     t.index ["s3_download_id"], name: "index_articles_on_s3_download_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_likes_on_article_id"
+  end
+
   create_table "s3_downloads", force: :cascade do |t|
     t.jsonb "manifest"
     t.datetime "created_at", null: false
@@ -33,4 +40,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_090930) do
   end
 
   add_foreign_key "articles", "s3_downloads"
+  add_foreign_key "likes", "articles"
 end
