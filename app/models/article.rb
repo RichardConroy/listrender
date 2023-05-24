@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
-# A representation of a user possession that is being offered up for collection
 class Article < ApplicationRecord
-  attribute :external_id, :integer
-  attribute :title, :string
-  attribute :description, :string
+  belongs_to :s3_download
+
+  validates :external_id, presence: true
+  validates :title, presence: true
+  validates :description, presence: true
 end
