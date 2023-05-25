@@ -15,10 +15,12 @@ module Manifest
 
     def call
       s3_download_record.manifest.map do |response_hash|
-        s3_download_record.articles.create!(
+        article = Article.find_or_initialize_by(external_id: response_hash['id'])
+        article.update!(
           external_id: response_hash['id'],
           title: response_hash['title'],
-          description: response_hash['description']
+          description: response_hash['description'],
+          s3_download_id: s3_download_record.id
         )
       end
     end

@@ -36,7 +36,7 @@ RSpec.describe "/articles", type: :request do
   describe 'POST /:id/like' do
     context 'with no article' do
       it 'raises' do
-        expect { post like_article_url(12345) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { post like_article_url(12_345) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe "/articles", type: :request do
 
       context 'with wrong :id' do
         it 'raises' do
-          expect { post like_article_url(article.id + 12345) }.to raise_error(ActiveRecord::RecordNotFound)
+          expect { post like_article_url(article.id + 12_345) }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
