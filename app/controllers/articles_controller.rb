@@ -7,7 +7,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = @created_s3_download.articles
+    # @articles = @created_s3_download.articles
+    @articles = ArticlesWithLikeCount.call(s3_download_record: @created_s3_download)
   end
 
   def like
