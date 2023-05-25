@@ -11,6 +11,10 @@ module ArticleFinders
   def first_article_like_count
     first_article.find('.like_count')
   end
+
+  def like_count
+    find('.like_count')
+  end
 end
 
 RSpec.describe "Articles", type: :system do
@@ -44,6 +48,25 @@ RSpec.describe "Articles", type: :system do
 
       expect(first_article).to have_button 'Like'
       expect(first_article_like_count).to have_text '0'
+    end
+  end
+
+  describe 'liking an article' do
+    before { stub_s3_download file_fixture('two_articles.json') }
+
+    it 'increments the like count' do
+      visit articles_path
+
+      expect(first_article_like_count.text).to eq('0 likes')
+      within first_article do
+        click_button 'Like'
+      end
+      expect(first_article_like_count.text).to eq('1 likes')
+
+      within first_article do
+        click_button 'Like'
+      end
+      expect(first_article_like_count.text).to eq('2 likes')
     end
   end
 end

@@ -32,4 +32,39 @@ RSpec.describe "/articles", type: :request do
       expect { get articles_url }.to change { Article.count }.by(25)
     end
   end
+
+  describe 'POST /:id/like' do
+    context 'with no article' do
+      it 'raises' do
+        expect { post like_article_url(12345) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with article' do
+      let!(:article) { FactoryBot.create :article }
+
+      it 'inserts an associated like record' do
+        expect { post like_article_url(article.id) }.to change { article.likes.count }.by(1)
+      end
+
+      it 'redirects to /index' do
+        post like_article_url(article.id)
+        expect(response).to redirect_to articles_url
+      end
+
+      context 'with existing likes' do
+        before { FactoryBot.create :like, article: article }
+
+        it 'inserts an associated like record' do
+          expect { post like_article_url(article.id) }.to change { article.likes.count }.by(1)
+        end
+      end
+
+      context 'with wrong :id' do
+        it 'raises' do
+          expect { post like_article_url(article.id + 12345) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
 end

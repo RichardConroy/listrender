@@ -3,8 +3,10 @@
   <p><%= article.description %></p>
   <p>
     <div>
-      <%= button_to 'Like', like_article_path(123456) %>
+      <%= button_to 'Like', like_article_path(article.id) %>
     </div>
-    <div class="like_count">0 likes</div>
+    <div class="like_count">
+      <%= article.likes.count %> likes
+    </div>
   </p>
 </div>

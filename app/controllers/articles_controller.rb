@@ -2,7 +2,7 @@
 
 # Controller class for rendering collections of articles from an external YAML file stored on S3
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[show edit update destroy]
+  before_action :set_article, only: %i[show like]
   before_action :download_s3_manifest, only: :index
 
   # GET /articles or /articles.json
@@ -10,7 +10,10 @@ class ArticlesController < ApplicationController
     @articles = @created_s3_download.articles
   end
 
-  def like; end
+  def like
+    @article.likes.create!
+    redirect_to articles_url
+  end
 
   # GET /articles/1 or /articles/1.json
   def show
